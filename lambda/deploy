@@ -69,7 +69,7 @@ if [ "$IS_CREATE" == "--create" ]; then
     --zip-file fileb://./build/$FUNCTION_NAME.zip \
     --role $AWS_LAMBDA_ROLE \
     --handler lambda_handler.handler \
-    --runtime python3.6 \
+    --runtime python3.7 \
     --timeout 900 \
     --memory-size 128
 
