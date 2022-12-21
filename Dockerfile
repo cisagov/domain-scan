@@ -1,6 +1,6 @@
 # VERSION 0.3.0
 
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 MAINTAINER Shane Frasier <jeremy.frasier@trio.dhs.gov>
 
 ###
@@ -43,6 +43,7 @@ RUN \
       libtool \
       pkg-config \
       sqlite3 \
+      sudo \
       # Additional dependencies for python-build
       libbz2-dev \
       llvm \
@@ -125,8 +126,7 @@ RUN pip install --upgrade pip setuptools
 ###
 # Node
 ###
-# RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash
 RUN apt-get install -y nodejs
 
 ###
