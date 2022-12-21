@@ -58,6 +58,8 @@ RUN \
       libappindicator3-1 \
       libasound2 \
       libatk-bridge2.0-0 \
+      libdrm2 \
+      libgbm1 \
       libgtk-3-0 \
       libnspr4 \
       libnss3 \
