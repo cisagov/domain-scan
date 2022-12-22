@@ -10,7 +10,7 @@ from utils import utils
 # Measure a site's HTTP behavior using DHS NCATS' pshtt tool.
 
 # Network timeout for each internal pshtt HTTP request.
-pshtt_timeout = 5
+pshtt_timeout = 7
 
 # Default to a custom user agent that can be overridden via an environment
 # variable
