@@ -28,19 +28,10 @@ lambda_suffix_path = "./cache/public-suffix-list.txt"
 def init(environment, options):
     logging.warning("[pshtt] Downloading third party data...")
 
-    # In local environments, download latest PSL, cache in-memory.
-    if environment['scan_method'] == "local":
-        instance, suffix_list = pshtt.load_suffix_list()
-
-    # In the cloud, we'll use a PSL snapshot instead of fresh data.
-    # Not worth the network transit on my end or the PSL's.
-    else:
-        suffix_list = None
-
     return {
         'preload_list': pshtt.load_preload_list(),
         'preload_pending': pshtt.load_preload_pending(),
-        'suffix_list': suffix_list
+        'suffix_list': None
     }
 
 

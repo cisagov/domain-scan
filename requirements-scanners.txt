@@ -26,5 +26,5 @@ ijson
 beautifulsoup4
 
 # headless
-publicsuffix
+publicsuffixlist[update]
 strict_rfc3339

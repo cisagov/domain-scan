@@ -24,7 +24,8 @@ from typing import (
 from types import ModuleType
 from urllib.error import URLError
 
-import publicsuffix
+from publicsuffixlist.compat import PublicSuffixList
+from publicsuffixlist.update import updatePSL
 import requests
 import strict_rfc3339
 
@@ -299,7 +300,7 @@ def base_domain_for(subdomain, cache_dir="./cache"):
     If suffix_list is None, the caches have not been initialized, so do that.
     """
     if suffix_list is None:
-        suffix_list, discard = load_suffix_list(cache_dir=cache_dir)
+        suffix_list = load_suffix_list(cache_dir=cache_dir)
 
     if suffix_list is None:
         logging.warning("Error downloading the PSL.")
@@ -308,34 +309,27 @@ def base_domain_for(subdomain, cache_dir="./cache"):
     return suffix_list.get_public_suffix(subdomain)
 
 
-# Returns an instantiated PublicSuffixList object, and the
-# list of lines read from the file.
+# Returns an instantiated PublicSuffixList object.
 def load_suffix_list(cache_dir="./cache"):
 
     cached_psl = cache_single("public-suffix-list.txt", cache_dir=cache_dir)
 
-    if os.path.exists(cached_psl):
-        logging.debug("Using cached Public Suffix List...")
-        with codecs.open(cached_psl, encoding='utf-8') as psl_file:
-            suffixes = publicsuffix.PublicSuffixList(psl_file)
-            content = psl_file.readlines()
-    else:
-        # File does not exist, download current list and cache it at given location.
+    # File does not exist, download current list and cache it at given location.
+    if not os.path.exists(cached_psl):
         logging.debug("Downloading the Public Suffix List...")
         try:
-            cache_file = publicsuffix.fetch()
-        except URLError as err:
+            updatePSL(cached_psl)
+        except Exception as err:
             logging.warning("Unable to download the Public Suffix List...")
             logging.debug("{}".format(err))
             return None, None
 
-        content = cache_file.readlines()
-        suffixes = publicsuffix.PublicSuffixList(content)
 
-        # Cache for later.
-        write(''.join(content), cached_psl)
+    logging.debug("Using cached Public Suffix List...")
+    with codecs.open(cached_psl, encoding='utf-8') as psl_file:
+        suffixes = PublicSuffixList(psl_file)
 
-    return suffixes, content
+    return suffixes
 # /Cache Handling #
 
 
