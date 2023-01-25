@@ -423,7 +423,7 @@ def perform_lambda_scan(scanner, domain, handles, environment, options, meta, pr
             logging.warn('No more retries for {}'.format(domain))
             return previousData
 
-    task_prefix = "task_"  # default, maybe make optional later
+    task_prefix = "testing_"  # default, maybe make optional later
     task_name = "%s%s" % (task_prefix, scanner_name)
 
     # JSON payload that arrives as the 'event' object in Lambda.
