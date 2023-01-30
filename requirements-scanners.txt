@@ -5,10 +5,10 @@
 builtwith>=1.3.4
 
 # pshtt
-pshtt>=0.6.9
+pshtt>=0.6.10
 
 # trustymail
-trustymail>=0.7.5
+trustymail>=0.8.1
 
 # sslyze
 sslyze>=2.1.3,<3.0
@@ -26,5 +26,5 @@ ijson
 beautifulsoup4
 
 # headless
-publicsuffix
+publicsuffixlist[update]
 strict_rfc3339

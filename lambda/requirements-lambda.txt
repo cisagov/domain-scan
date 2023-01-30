@@ -1,6 +1,6 @@
 # These are the only dependencies which must get packaged
 # into every (Python-based) Lambda container build.
 
-publicsuffix
+publicsuffixlist[update]
 requests
 strict-rfc3339
