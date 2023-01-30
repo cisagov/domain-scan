@@ -12,7 +12,7 @@
 #   ./lambda/deploy sslyze
 
 SCANNER_NAME=$1
-FUNCTION_NAME="testing_$SCANNER_NAME"
+FUNCTION_NAME="task_$SCANNER_NAME"
 
 IS_CREATE=$2
 
