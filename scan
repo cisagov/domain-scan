@@ -420,7 +420,7 @@ def perform_lambda_scan(scanner, domain, handles, environment, options, meta, pr
             meta['lambda']['retries'] = meta['lambda']['retries'] + 1
             logging.info('Attempting retry number {} for {}'.format(meta['lambda']['retries'], domain))
         else:
-            logging.warn('No more retries for {}'.format(domain))
+            logging.warning('No more retries for {}'.format(domain))
             return previousData
 
     task_prefix = "task_"  # default, maybe make optional later
