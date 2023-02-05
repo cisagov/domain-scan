@@ -322,7 +322,7 @@ def load_suffix_list(cache_dir="./cache"):
         except Exception as err:
             logging.warning("Unable to download the Public Suffix List...")
             logging.debug("{}".format(err))
-            return None, None
+            return None
 
 
     logging.debug("Using cached Public Suffix List...")
