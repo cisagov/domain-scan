@@ -513,6 +513,9 @@ def load_suffix_list(cache_dir="./cache"):
 
     cached_psl = cache_single("public-suffix-list.txt", cache_dir=cache_dir)
 
+    # make sure the cache directory is present
+    mkdir_p(os.path.dirname(cached_psl))
+
     # File does not exist, download current list and cache it at given location.
     if not os.path.exists(cached_psl):
         logging.debug("Downloading the Public Suffix List...")
@@ -521,7 +524,7 @@ def load_suffix_list(cache_dir="./cache"):
         except Exception as err:
             logging.warning("Unable to download the Public Suffix List...")
             logging.debug("{}".format(err))
-            return None, None
+            return None
 
 
     logging.debug("Using cached Public Suffix List...")
