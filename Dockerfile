@@ -127,7 +127,7 @@ RUN echo 'eval "$(pyenv init -)"' >> /etc/profile \
 ###
 # Update pip and setuptools to the latest versions
 ###
-RUN pip install --upgrade pip setuptools
+RUN pip install --upgrade pip setuptools wheel
 
 ###
 # Node
