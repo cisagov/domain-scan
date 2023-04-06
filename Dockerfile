@@ -85,8 +85,10 @@ RUN ln -s /usr/bin/google-chrome-stable /usr/bin/chrome
 ###
 ## Python
 ###
-ENV PYENV_RELEASE=1.2.2 PYENV_PYTHON_VERSION=3.6.4 PYENV_ROOT=/opt/pyenv \
-    PYENV_REPO=https://github.com/pyenv/pyenv
+ENV PYENV_RELEASE=1.2.2
+ENV PYENV_PYTHON_VERSION=3.6.4
+ENV PYENV_ROOT=/opt/pyenv
+ENV PYENV_REPO=https://github.com/pyenv/pyenv
 
 RUN wget ${PYENV_REPO}/archive/v${PYENV_RELEASE}.zip \
       --no-verbose \
