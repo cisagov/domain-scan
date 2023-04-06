@@ -17,37 +17,37 @@ RUN \
         --no-install-recommends \
         --no-install-suggests \
       apt-utils \
+      autoconf \
+      automake \
+      bison \
       build-essential \
       curl \
+      gawk \
       git \
       libc6-dev \
+      libffi-dev \
       libfontconfig1 \
+      libgdbm-dev \
+      libncurses5-dev \
       libreadline-dev \
+      libsqlite3-dev \
       libssl-dev \
       libssl-doc \
+      libtool \
       libxml2-dev \
       libxslt1-dev \
       libyaml-dev \
       make \
-      unzip \
-      wget \
-      zlib1g-dev \
-      autoconf \
-      automake \
-      bison \
-      gawk \
-      libffi-dev \
-      libgdbm-dev \
-      libncurses5-dev \
-      libsqlite3-dev \
-      libtool \
       pkg-config \
       sqlite3 \
       sudo \
+      unzip \
+      wget \
+      zlib1g-dev \
       # Additional dependencies for python-build
       libbz2-dev \
-      llvm \
       libncursesw5-dev \
+      llvm \
       # Additional dependencies for third-parties scanner
       nodejs \
       npm \
