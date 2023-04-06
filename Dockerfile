@@ -10,9 +10,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
     apt-get update \
-        -qq \
+        --quiet --quiet \
     && apt-get install \
-        -qq \
+        --quiet --quiet \
         --yes \
         --no-install-recommends \
         --no-install-suggests \
@@ -70,17 +70,17 @@ RUN \
       lsb-release \
       xdg-utils
 
-RUN apt-get install -qq --yes locales && locale-gen en_US.UTF-8
+RUN apt-get install --quiet --quiet --yes locales && locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 ###
 # Google Chrome
 ###
-RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i google-chrome-stable_current_amd64.deb \
+RUN wget --quiet https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && dpkg --install google-chrome-stable_current_amd64.deb \
     && rm google-chrome-stable_current_amd64.deb
 # The third-parties scanner looks for an executable called chrome
-RUN ln -s /usr/bin/google-chrome-stable /usr/bin/chrome
+RUN ln --symbolic /usr/bin/google-chrome-stable /usr/bin/chrome
 
 ###
 ## Python
@@ -94,7 +94,7 @@ RUN wget ${PYENV_REPO}/archive/v${PYENV_RELEASE}.zip \
       --no-verbose \
     && unzip v$PYENV_RELEASE.zip -d $PYENV_ROOT \
     && mv $PYENV_ROOT/pyenv-$PYENV_RELEASE/* $PYENV_ROOT/ \
-    && rm -r $PYENV_ROOT/pyenv-$PYENV_RELEASE
+    && rm --recursive $PYENV_ROOT/pyenv-$PYENV_RELEASE
 
 #
 # Uncomment these lines if you just want to install python...
@@ -113,13 +113,13 @@ RUN echo 'eval "$(pyenv init -)"' >> /etc/profile \
 #     && eval "$(pyenv init -)" \
 #     && pyenv install --debug --keep $PYENV_PYTHON_VERSION \
 #     && pyenv local ${PYENV_PYTHON_VERSION}-debug
-# RUN ln -s /opt/pyenv/sources/${PYENV_PYTHON_VERSION}-debug/Python-${PYENV_PYTHON_VERSION}/python-gdb.py \
+# RUN ln --symbolic /opt/pyenv/sources/${PYENV_PYTHON_VERSION}-debug/Python-${PYENV_PYTHON_VERSION}/python-gdb.py \
 #     /opt/pyenv/versions/${PYENV_PYTHON_VERSION}-debug/bin/python3.6-gdb.py \
-#     && ln -s /opt/pyenv/sources/${PYENV_PYTHON_VERSION}-debug/Python-${PYENV_PYTHON_VERSION}/python-gdb.py \
+#     && ln --symbolic /opt/pyenv/sources/${PYENV_PYTHON_VERSION}-debug/Python-${PYENV_PYTHON_VERSION}/python-gdb.py \
 #     /opt/pyenv/versions/${PYENV_PYTHON_VERSION}-debug/bin/python3-gdb.py \
-#     && ln -s /opt/pyenv/sources/${PYENV_PYTHON_VERSION}-debug/Python-${PYENV_PYTHON_VERSION}/python-gdb.py \
+#     && ln --symbolic /opt/pyenv/sources/${PYENV_PYTHON_VERSION}-debug/Python-${PYENV_PYTHON_VERSION}/python-gdb.py \
 #     /opt/pyenv/versions/${PYENV_PYTHON_VERSION}-debug/bin/python-gdb.py
-# RUN apt-get -qq --yes --no-install-recommends --no-install-suggests install gdb
+# RUN apt-get --quiet --quiet --yes --no-install-recommends --no-install-suggests install gdb
 # RUN echo add-auto-load-safe-path \
 #     /opt/pyenv/sources/${PYENV_PYTHON_VERSION}-debug/Python-${PYENV_PYTHON_VERSION}/ \
 #     >> etc/gdb/gdbinit
@@ -132,16 +132,16 @@ RUN pip install --upgrade pip setuptools wheel
 ###
 # Node
 ###
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash
-RUN apt-get install -y nodejs
+RUN curl --fail --shell --stdin --location https://deb.nodesource.com/setup_14.x | sudo --preserve-env bash
+RUN apt-get install --quiet --quiet --yes nodejs
 
 ###
 ## pa11y
 ###
 
 RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
-    && tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2 -C /usr/local/share/ \
-    && ln -s /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/
+    && tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2 --directory /usr/local/share/ \
+    && ln --symbolic /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/
 RUN npm install --global pa11y@4.13.2 --ignore-scripts
 
 ###
@@ -155,9 +155,9 @@ RUN npm install puppeteer
 ###
 ENV SCANNER_HOME /home/scanner
 RUN mkdir $SCANNER_HOME \
-    && groupadd -r scanner \
-    && useradd -r -c "Scanner user" -g scanner scanner \
-    && chown -R scanner:scanner ${SCANNER_HOME}
+    && groupadd --system scanner \
+    && useradd --system --comment "Scanner user" --gid scanner scanner \
+    && chown --recursive scanner:scanner ${SCANNER_HOME}
 
 ###
 # Prepare to Run
@@ -173,11 +173,11 @@ COPY . $SCANNER_HOME
 # domain-scan
 ###
 RUN pip install --upgrade \
-    -r requirements.txt \
-    -r requirements-gatherers.txt \
-    -r requirements-scanners.txt
+    --requirement requirements.txt \
+    --requirement requirements-gatherers.txt \
+    --requirement requirements-scanners.txt
 
 # Clean up aptitude stuff we no longer need
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean && rm --recursive --force /var/lib/apt/lists/*
 
 ENTRYPOINT ["./scan_wrap.sh"]
