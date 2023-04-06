@@ -63,6 +63,8 @@ RUN \
       libgtk-3-0 \
       libnspr4 \
       libnss3 \
+      libu2f-udev \
+      libvulkan1 \
       libxss1 \
       libxtst6 \
       lsb-release \
