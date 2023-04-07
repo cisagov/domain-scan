@@ -21,7 +21,6 @@ RUN \
       automake \
       bison \
       build-essential \
-      curl \
       gawk \
       git \
       libc6-dev \
@@ -132,7 +131,7 @@ RUN pip install --upgrade pip setuptools wheel
 ###
 # Node
 ###
-RUN curl --fail --shell --stdin --location https://deb.nodesource.com/setup_14.x | sudo --preserve-env bash
+RUN wget --output-document - https://deb.nodesource.com/setup_14.x | sudo --preserve-env bash
 RUN apt-get install --quiet --quiet --yes nodejs
 
 ###
