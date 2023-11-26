@@ -20,7 +20,7 @@ strip_www = re.compile(r"^www\.")
 
 # Applied to all domains.
 strip_protocol = re.compile(r"^https?://")
-strip_wildcard = re.compile(r"^(\*.)+")
+strip_wildcard = re.compile(r"^(\*\.)+")
 strip_redacted = re.compile(r"^(\?\.)+")
 
 
