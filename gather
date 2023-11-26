@@ -16,12 +16,12 @@ start_time = utils.local_now()
 start_command = str.join(" ", sys.argv)
 
 # Applied if --ignore-www is enabled.
-strip_www = re.compile("^www\.")
+strip_www = re.compile(r"^www\.")
 
 # Applied to all domains.
-strip_protocol = re.compile("^https?://")
-strip_wildcard = re.compile("^(\*.)+")
-strip_redacted = re.compile("^(\?\.)+")
+strip_protocol = re.compile(r"^https?://")
+strip_wildcard = re.compile(r"^(\*.)+")
+strip_redacted = re.compile(r"^(\?\.)+")
 
 
 def run(options=None, cache_dir="./cache", results_dir="./results"):
